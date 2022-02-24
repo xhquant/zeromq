@@ -1,9 +1,0 @@
-/home/xiaohai/Github/zeromq/build/CMakeFiles/rebuild_cache.dir
-/home/xiaohai/Github/zeromq/build/CMakeFiles/edit_cache.dir
-/home/xiaohai/Github/zeromq/build/example_0/CMakeFiles/rebuild_cache.dir
-/home/xiaohai/Github/zeromq/build/example_0/CMakeFiles/edit_cache.dir
-/home/xiaohai/Github/zeromq/build/example_0/CMakeFiles/version.dir
-/home/xiaohai/Github/zeromq/build/example_1/CMakeFiles/edit_cache.dir
-/home/xiaohai/Github/zeromq/build/example_1/CMakeFiles/rebuild_cache.dir
-/home/xiaohai/Github/zeromq/build/example_1/CMakeFiles/hello_world_client.dir
-/home/xiaohai/Github/zeromq/build/example_1/CMakeFiles/hello_world_server.dir

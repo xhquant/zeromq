@@ -1,1 +1,0 @@
-/usr/bin/c++  -g   CMakeFiles/version.dir/version.cpp.o  -o ../../bin/version  -lpthread -lzmq 
