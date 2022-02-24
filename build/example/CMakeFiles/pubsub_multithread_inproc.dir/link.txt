@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/pubsub_multithread_inproc.dir/pubsub_multithread_inproc.cpp.o  -o ../../bin/pubsub_multithread_inproc  -lzmq -lpthread 

@@ -1,0 +1,4 @@
+SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
+
+ADD_EXECUTABLE(version version.cpp)
+TARGET_LINK_LIBRARIES(version pthread zmq)

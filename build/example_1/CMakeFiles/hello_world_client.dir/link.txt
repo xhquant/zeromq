@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/hello_world_client.dir/hello_world_client.cpp.o  -o ../../bin/hello_world_client  -lpthread -lzmq 

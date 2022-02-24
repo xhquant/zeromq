@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/multipart_messages.dir/multipart_messages.cpp.o  -o ../../bin/multipart_messages  -lzmq -lpthread 

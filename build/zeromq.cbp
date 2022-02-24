@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="zeromq"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\example_0\;CMake Files\example_1\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/xiaohai/Github/zeromq/build"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j4 -f &quot;/home/xiaohai/Github/zeromq/build/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/gmake -j4 -f &quot;/home/xiaohai/Github/zeromq/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j4 -f &quot;/home/xiaohai/Github/zeromq/build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j4 -f &quot;/home/xiaohai/Github/zeromq/build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/xiaohai/Github/zeromq/build"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j4 -f &quot;/home/xiaohai/Github/zeromq/build/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/gmake -j4 -f &quot;/home/xiaohai/Github/zeromq/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j4 -f &quot;/home/xiaohai/Github/zeromq/build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j4 -f &quot;/home/xiaohai/Github/zeromq/build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/xiaohai/Github/zeromq/build"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j4 -f &quot;/home/xiaohai/Github/zeromq/build/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/gmake -j4 -f &quot;/home/xiaohai/Github/zeromq/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j4 -f &quot;/home/xiaohai/Github/zeromq/build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j4 -f &quot;/home/xiaohai/Github/zeromq/build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="version">
+				<Option output="/home/xiaohai/Github/zeromq/bin/version" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/xiaohai/Github/zeromq/bin"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/xiaohai/Github/zeromq/zmqcpp"/>
+					<Add directory="/opt/ZZZ/SQLite/install/include"/>
+					<Add directory="/opt/ZZZ/CTP/include"/>
+					<Add directory="/opt/ZZZ/matplotlib-cpp/install/include"/>
+					<Add directory="/opt/ZZZ/oneTBB/install/include"/>
+					<Add directory="/opt/ZZZ/date/install/include"/>
+					<Add directory="/opt/ZZZ/json/install/include"/>
+					<Add directory="/opt/ZZZ/tinyxml2/install/include"/>
+					<Add directory="/opt/ZZZ/dlib/install/include"/>
+					<Add directory="/opt/ZZZ/mlpack/install/include"/>
+					<Add directory="/opt/ZZZ/MNN/install/include"/>
+					<Add directory="/opt/ZZZ/thundersvm/install/include"/>
+					<Add directory="/opt/ZZZ/lightGBM/install/include"/>
+					<Add directory="/opt/ZZZ/xgboost/install/include"/>
+					<Add directory="/opt/ZZZ/tiny-dnn/install/include"/>
+					<Add directory="/opt/ZZZ/fmt/install/include"/>
+					<Add directory="/opt/ZZZ/log4cplus/install/include"/>
+					<Add directory="/opt/ZZZ/spdlog/install/include"/>
+					<Add directory="/opt/ZZZ/zeromq/install/include"/>
+					<Add directory="/opt/ZZZ/nanomsg/install/include"/>
+					<Add directory="/opt/ZZZ/redis/install/include"/>
+					<Add directory="/opt/ZZZ/highfive/install/include"/>
+					<Add directory="/opt/ZZZ/cereal/install/include"/>
+					<Add directory="/opt/ZZZ/rxcpp/install/include"/>
+					<Add directory="/opt/ZZZ/dataframe/install/include"/>
+					<Add directory="/opt/ZZZ/numcpp/install/include"/>
+					<Add directory="/opt/ZZZ/armadillo/install/include"/>
+					<Add directory="/opt/ZZZ/xtensor/install/include"/>
+					<Add directory="/opt/ZZZ/eigen/install/include/eigen3"/>
+					<Add directory="/opt/mysql-connector-cpp/install/include"/>
+					<Add directory="/opt/gsl/install/include"/>
+					<Add directory="/opt/nodejs/install/node_modules"/>
+					<Add directory="/opt/nodejs/install/include"/>
+					<Add directory="/opt/pybind11/install/include"/>
+					<Add directory="/opt/TA-Lib/install/include"/>
+					<Add directory="/opt/root/install/include"/>
+					<Add directory="/opt/boost/install/include"/>
+					<Add directory="/opt/python3.8/install/include/python3.8"/>
+					<Add directory="/opt/qt/install/5.14.2/gcc_64/include"/>
+					<Add directory="."/>
+					<Add directory="/opt/ZZZ/libTorch/install/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/8/../../../../include/c++/8"/>
+					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/8/../../../../include/c++/8/x86_64-redhat-linux"/>
+					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/8/../../../../include/c++/8/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j4 -f &quot;/home/xiaohai/Github/zeromq/build/example_0/Makefile&quot;  VERBOSE=1 version"/>
+					<CompileFile command="/usr/bin/gmake -j4 -f &quot;/home/xiaohai/Github/zeromq/build/example_0/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j4 -f &quot;/home/xiaohai/Github/zeromq/build/example_0/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j4 -f &quot;/home/xiaohai/Github/zeromq/build/example_0/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="version/fast">
+				<Option output="/home/xiaohai/Github/zeromq/bin/version" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/xiaohai/Github/zeromq/bin"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/xiaohai/Github/zeromq/zmqcpp"/>
+					<Add directory="/opt/ZZZ/SQLite/install/include"/>
+					<Add directory="/opt/ZZZ/CTP/include"/>
+					<Add directory="/opt/ZZZ/matplotlib-cpp/install/include"/>
+					<Add directory="/opt/ZZZ/oneTBB/install/include"/>
+					<Add directory="/opt/ZZZ/date/install/include"/>
+					<Add directory="/opt/ZZZ/json/install/include"/>
+					<Add directory="/opt/ZZZ/tinyxml2/install/include"/>
+					<Add directory="/opt/ZZZ/dlib/install/include"/>
+					<Add directory="/opt/ZZZ/mlpack/install/include"/>
+					<Add directory="/opt/ZZZ/MNN/install/include"/>
+					<Add directory="/opt/ZZZ/thundersvm/install/include"/>
+					<Add directory="/opt/ZZZ/lightGBM/install/include"/>
+					<Add directory="/opt/ZZZ/xgboost/install/include"/>
+					<Add directory="/opt/ZZZ/tiny-dnn/install/include"/>
+					<Add directory="/opt/ZZZ/fmt/install/include"/>
+					<Add directory="/opt/ZZZ/log4cplus/install/include"/>
+					<Add directory="/opt/ZZZ/spdlog/install/include"/>
+					<Add directory="/opt/ZZZ/zeromq/install/include"/>
+					<Add directory="/opt/ZZZ/nanomsg/install/include"/>
+					<Add directory="/opt/ZZZ/redis/install/include"/>
+					<Add directory="/opt/ZZZ/highfive/install/include"/>
+					<Add directory="/opt/ZZZ/cereal/install/include"/>
+					<Add directory="/opt/ZZZ/rxcpp/install/include"/>
+					<Add directory="/opt/ZZZ/dataframe/install/include"/>
+					<Add directory="/opt/ZZZ/numcpp/install/include"/>
+					<Add directory="/opt/ZZZ/armadillo/install/include"/>
+					<Add directory="/opt/ZZZ/xtensor/install/include"/>
+					<Add directory="/opt/ZZZ/eigen/install/include/eigen3"/>
+					<Add directory="/opt/mysql-connector-cpp/install/include"/>
+					<Add directory="/opt/gsl/install/include"/>
+					<Add directory="/opt/nodejs/install/node_modules"/>
+					<Add directory="/opt/nodejs/install/include"/>
+					<Add directory="/opt/pybind11/install/include"/>
+					<Add directory="/opt/TA-Lib/install/include"/>
+					<Add directory="/opt/root/install/include"/>
+					<Add directory="/opt/boost/install/include"/>
+					<Add directory="/opt/python3.8/install/include/python3.8"/>
+					<Add directory="/opt/qt/install/5.14.2/gcc_64/include"/>
+					<Add directory="."/>
+					<Add directory="/opt/ZZZ/libTorch/install/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/8/../../../../include/c++/8"/>
+					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/8/../../../../include/c++/8/x86_64-redhat-linux"/>
+					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/8/../../../../include/c++/8/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j4 -f &quot;/home/xiaohai/Github/zeromq/build/example_0/Makefile&quot;  VERBOSE=1 version/fast"/>
+					<CompileFile command="/usr/bin/gmake -j4 -f &quot;/home/xiaohai/Github/zeromq/build/example_0/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j4 -f &quot;/home/xiaohai/Github/zeromq/build/example_0/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j4 -f &quot;/home/xiaohai/Github/zeromq/build/example_0/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="hello_world_client">
+				<Option output="/home/xiaohai/Github/zeromq/bin/hello_world_client" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/xiaohai/Github/zeromq/bin"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/xiaohai/Github/zeromq/zmqcpp"/>
+					<Add directory="/opt/ZZZ/SQLite/install/include"/>
+					<Add directory="/opt/ZZZ/CTP/include"/>
+					<Add directory="/opt/ZZZ/matplotlib-cpp/install/include"/>
+					<Add directory="/opt/ZZZ/oneTBB/install/include"/>
+					<Add directory="/opt/ZZZ/date/install/include"/>
+					<Add directory="/opt/ZZZ/json/install/include"/>
+					<Add directory="/opt/ZZZ/tinyxml2/install/include"/>
+					<Add directory="/opt/ZZZ/dlib/install/include"/>
+					<Add directory="/opt/ZZZ/mlpack/install/include"/>
+					<Add directory="/opt/ZZZ/MNN/install/include"/>
+					<Add directory="/opt/ZZZ/thundersvm/install/include"/>
+					<Add directory="/opt/ZZZ/lightGBM/install/include"/>
+					<Add directory="/opt/ZZZ/xgboost/install/include"/>
+					<Add directory="/opt/ZZZ/tiny-dnn/install/include"/>
+					<Add directory="/opt/ZZZ/fmt/install/include"/>
+					<Add directory="/opt/ZZZ/log4cplus/install/include"/>
+					<Add directory="/opt/ZZZ/spdlog/install/include"/>
+					<Add directory="/opt/ZZZ/zeromq/install/include"/>
+					<Add directory="/opt/ZZZ/nanomsg/install/include"/>
+					<Add directory="/opt/ZZZ/redis/install/include"/>
+					<Add directory="/opt/ZZZ/highfive/install/include"/>
+					<Add directory="/opt/ZZZ/cereal/install/include"/>
+					<Add directory="/opt/ZZZ/rxcpp/install/include"/>
+					<Add directory="/opt/ZZZ/dataframe/install/include"/>
+					<Add directory="/opt/ZZZ/numcpp/install/include"/>
+					<Add directory="/opt/ZZZ/armadillo/install/include"/>
+					<Add directory="/opt/ZZZ/xtensor/install/include"/>
+					<Add directory="/opt/ZZZ/eigen/install/include/eigen3"/>
+					<Add directory="/opt/mysql-connector-cpp/install/include"/>
+					<Add directory="/opt/gsl/install/include"/>
+					<Add directory="/opt/nodejs/install/node_modules"/>
+					<Add directory="/opt/nodejs/install/include"/>
+					<Add directory="/opt/pybind11/install/include"/>
+					<Add directory="/opt/TA-Lib/install/include"/>
+					<Add directory="/opt/root/install/include"/>
+					<Add directory="/opt/boost/install/include"/>
+					<Add directory="/opt/python3.8/install/include/python3.8"/>
+					<Add directory="/opt/qt/install/5.14.2/gcc_64/include"/>
+					<Add directory="."/>
+					<Add directory="/opt/ZZZ/libTorch/install/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/8/../../../../include/c++/8"/>
+					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/8/../../../../include/c++/8/x86_64-redhat-linux"/>
+					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/8/../../../../include/c++/8/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j4 -f &quot;/home/xiaohai/Github/zeromq/build/example_1/Makefile&quot;  VERBOSE=1 hello_world_client"/>
+					<CompileFile command="/usr/bin/gmake -j4 -f &quot;/home/xiaohai/Github/zeromq/build/example_1/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j4 -f &quot;/home/xiaohai/Github/zeromq/build/example_1/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j4 -f &quot;/home/xiaohai/Github/zeromq/build/example_1/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="hello_world_client/fast">
+				<Option output="/home/xiaohai/Github/zeromq/bin/hello_world_client" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/xiaohai/Github/zeromq/bin"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/xiaohai/Github/zeromq/zmqcpp"/>
+					<Add directory="/opt/ZZZ/SQLite/install/include"/>
+					<Add directory="/opt/ZZZ/CTP/include"/>
+					<Add directory="/opt/ZZZ/matplotlib-cpp/install/include"/>
+					<Add directory="/opt/ZZZ/oneTBB/install/include"/>
+					<Add directory="/opt/ZZZ/date/install/include"/>
+					<Add directory="/opt/ZZZ/json/install/include"/>
+					<Add directory="/opt/ZZZ/tinyxml2/install/include"/>
+					<Add directory="/opt/ZZZ/dlib/install/include"/>
+					<Add directory="/opt/ZZZ/mlpack/install/include"/>
+					<Add directory="/opt/ZZZ/MNN/install/include"/>
+					<Add directory="/opt/ZZZ/thundersvm/install/include"/>
+					<Add directory="/opt/ZZZ/lightGBM/install/include"/>
+					<Add directory="/opt/ZZZ/xgboost/install/include"/>
+					<Add directory="/opt/ZZZ/tiny-dnn/install/include"/>
+					<Add directory="/opt/ZZZ/fmt/install/include"/>
+					<Add directory="/opt/ZZZ/log4cplus/install/include"/>
+					<Add directory="/opt/ZZZ/spdlog/install/include"/>
+					<Add directory="/opt/ZZZ/zeromq/install/include"/>
+					<Add directory="/opt/ZZZ/nanomsg/install/include"/>
+					<Add directory="/opt/ZZZ/redis/install/include"/>
+					<Add directory="/opt/ZZZ/highfive/install/include"/>
+					<Add directory="/opt/ZZZ/cereal/install/include"/>
+					<Add directory="/opt/ZZZ/rxcpp/install/include"/>
+					<Add directory="/opt/ZZZ/dataframe/install/include"/>
+					<Add directory="/opt/ZZZ/numcpp/install/include"/>
+					<Add directory="/opt/ZZZ/armadillo/install/include"/>
+					<Add directory="/opt/ZZZ/xtensor/install/include"/>
+					<Add directory="/opt/ZZZ/eigen/install/include/eigen3"/>
+					<Add directory="/opt/mysql-connector-cpp/install/include"/>
+					<Add directory="/opt/gsl/install/include"/>
+					<Add directory="/opt/nodejs/install/node_modules"/>
+					<Add directory="/opt/nodejs/install/include"/>
+					<Add directory="/opt/pybind11/install/include"/>
+					<Add directory="/opt/TA-Lib/install/include"/>
+					<Add directory="/opt/root/install/include"/>
+					<Add directory="/opt/boost/install/include"/>
+					<Add directory="/opt/python3.8/install/include/python3.8"/>
+					<Add directory="/opt/qt/install/5.14.2/gcc_64/include"/>
+					<Add directory="."/>
+					<Add directory="/opt/ZZZ/libTorch/install/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/8/../../../../include/c++/8"/>
+					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/8/../../../../include/c++/8/x86_64-redhat-linux"/>
+					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/8/../../../../include/c++/8/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j4 -f &quot;/home/xiaohai/Github/zeromq/build/example_1/Makefile&quot;  VERBOSE=1 hello_world_client/fast"/>
+					<CompileFile command="/usr/bin/gmake -j4 -f &quot;/home/xiaohai/Github/zeromq/build/example_1/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j4 -f &quot;/home/xiaohai/Github/zeromq/build/example_1/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j4 -f &quot;/home/xiaohai/Github/zeromq/build/example_1/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="hello_world_server">
+				<Option output="/home/xiaohai/Github/zeromq/bin/hello_world_server" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/xiaohai/Github/zeromq/bin"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/xiaohai/Github/zeromq/zmqcpp"/>
+					<Add directory="/opt/ZZZ/SQLite/install/include"/>
+					<Add directory="/opt/ZZZ/CTP/include"/>
+					<Add directory="/opt/ZZZ/matplotlib-cpp/install/include"/>
+					<Add directory="/opt/ZZZ/oneTBB/install/include"/>
+					<Add directory="/opt/ZZZ/date/install/include"/>
+					<Add directory="/opt/ZZZ/json/install/include"/>
+					<Add directory="/opt/ZZZ/tinyxml2/install/include"/>
+					<Add directory="/opt/ZZZ/dlib/install/include"/>
+					<Add directory="/opt/ZZZ/mlpack/install/include"/>
+					<Add directory="/opt/ZZZ/MNN/install/include"/>
+					<Add directory="/opt/ZZZ/thundersvm/install/include"/>
+					<Add directory="/opt/ZZZ/lightGBM/install/include"/>
+					<Add directory="/opt/ZZZ/xgboost/install/include"/>
+					<Add directory="/opt/ZZZ/tiny-dnn/install/include"/>
+					<Add directory="/opt/ZZZ/fmt/install/include"/>
+					<Add directory="/opt/ZZZ/log4cplus/install/include"/>
+					<Add directory="/opt/ZZZ/spdlog/install/include"/>
+					<Add directory="/opt/ZZZ/zeromq/install/include"/>
+					<Add directory="/opt/ZZZ/nanomsg/install/include"/>
+					<Add directory="/opt/ZZZ/redis/install/include"/>
+					<Add directory="/opt/ZZZ/highfive/install/include"/>
+					<Add directory="/opt/ZZZ/cereal/install/include"/>
+					<Add directory="/opt/ZZZ/rxcpp/install/include"/>
+					<Add directory="/opt/ZZZ/dataframe/install/include"/>
+					<Add directory="/opt/ZZZ/numcpp/install/include"/>
+					<Add directory="/opt/ZZZ/armadillo/install/include"/>
+					<Add directory="/opt/ZZZ/xtensor/install/include"/>
+					<Add directory="/opt/ZZZ/eigen/install/include/eigen3"/>
+					<Add directory="/opt/mysql-connector-cpp/install/include"/>
+					<Add directory="/opt/gsl/install/include"/>
+					<Add directory="/opt/nodejs/install/node_modules"/>
+					<Add directory="/opt/nodejs/install/include"/>
+					<Add directory="/opt/pybind11/install/include"/>
+					<Add directory="/opt/TA-Lib/install/include"/>
+					<Add directory="/opt/root/install/include"/>
+					<Add directory="/opt/boost/install/include"/>
+					<Add directory="/opt/python3.8/install/include/python3.8"/>
+					<Add directory="/opt/qt/install/5.14.2/gcc_64/include"/>
+					<Add directory="."/>
+					<Add directory="/opt/ZZZ/libTorch/install/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/8/../../../../include/c++/8"/>
+					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/8/../../../../include/c++/8/x86_64-redhat-linux"/>
+					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/8/../../../../include/c++/8/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j4 -f &quot;/home/xiaohai/Github/zeromq/build/example_1/Makefile&quot;  VERBOSE=1 hello_world_server"/>
+					<CompileFile command="/usr/bin/gmake -j4 -f &quot;/home/xiaohai/Github/zeromq/build/example_1/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j4 -f &quot;/home/xiaohai/Github/zeromq/build/example_1/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j4 -f &quot;/home/xiaohai/Github/zeromq/build/example_1/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="hello_world_server/fast">
+				<Option output="/home/xiaohai/Github/zeromq/bin/hello_world_server" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/xiaohai/Github/zeromq/bin"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/xiaohai/Github/zeromq/zmqcpp"/>
+					<Add directory="/opt/ZZZ/SQLite/install/include"/>
+					<Add directory="/opt/ZZZ/CTP/include"/>
+					<Add directory="/opt/ZZZ/matplotlib-cpp/install/include"/>
+					<Add directory="/opt/ZZZ/oneTBB/install/include"/>
+					<Add directory="/opt/ZZZ/date/install/include"/>
+					<Add directory="/opt/ZZZ/json/install/include"/>
+					<Add directory="/opt/ZZZ/tinyxml2/install/include"/>
+					<Add directory="/opt/ZZZ/dlib/install/include"/>
+					<Add directory="/opt/ZZZ/mlpack/install/include"/>
+					<Add directory="/opt/ZZZ/MNN/install/include"/>
+					<Add directory="/opt/ZZZ/thundersvm/install/include"/>
+					<Add directory="/opt/ZZZ/lightGBM/install/include"/>
+					<Add directory="/opt/ZZZ/xgboost/install/include"/>
+					<Add directory="/opt/ZZZ/tiny-dnn/install/include"/>
+					<Add directory="/opt/ZZZ/fmt/install/include"/>
+					<Add directory="/opt/ZZZ/log4cplus/install/include"/>
+					<Add directory="/opt/ZZZ/spdlog/install/include"/>
+					<Add directory="/opt/ZZZ/zeromq/install/include"/>
+					<Add directory="/opt/ZZZ/nanomsg/install/include"/>
+					<Add directory="/opt/ZZZ/redis/install/include"/>
+					<Add directory="/opt/ZZZ/highfive/install/include"/>
+					<Add directory="/opt/ZZZ/cereal/install/include"/>
+					<Add directory="/opt/ZZZ/rxcpp/install/include"/>
+					<Add directory="/opt/ZZZ/dataframe/install/include"/>
+					<Add directory="/opt/ZZZ/numcpp/install/include"/>
+					<Add directory="/opt/ZZZ/armadillo/install/include"/>
+					<Add directory="/opt/ZZZ/xtensor/install/include"/>
+					<Add directory="/opt/ZZZ/eigen/install/include/eigen3"/>
+					<Add directory="/opt/mysql-connector-cpp/install/include"/>
+					<Add directory="/opt/gsl/install/include"/>
+					<Add directory="/opt/nodejs/install/node_modules"/>
+					<Add directory="/opt/nodejs/install/include"/>
+					<Add directory="/opt/pybind11/install/include"/>
+					<Add directory="/opt/TA-Lib/install/include"/>
+					<Add directory="/opt/root/install/include"/>
+					<Add directory="/opt/boost/install/include"/>
+					<Add directory="/opt/python3.8/install/include/python3.8"/>
+					<Add directory="/opt/qt/install/5.14.2/gcc_64/include"/>
+					<Add directory="."/>
+					<Add directory="/opt/ZZZ/libTorch/install/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/8/../../../../include/c++/8"/>
+					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/8/../../../../include/c++/8/x86_64-redhat-linux"/>
+					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/8/../../../../include/c++/8/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j4 -f &quot;/home/xiaohai/Github/zeromq/build/example_1/Makefile&quot;  VERBOSE=1 hello_world_server/fast"/>
+					<CompileFile command="/usr/bin/gmake -j4 -f &quot;/home/xiaohai/Github/zeromq/build/example_1/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j4 -f &quot;/home/xiaohai/Github/zeromq/build/example_1/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j4 -f &quot;/home/xiaohai/Github/zeromq/build/example_1/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/xiaohai/Github/zeromq/example_0/version.cpp">
+			<Option target="version"/>
+		</Unit>
+		<Unit filename="/home/xiaohai/Github/zeromq/example_1/hello_world_client.cpp">
+			<Option target="hello_world_client"/>
+		</Unit>
+		<Unit filename="/home/xiaohai/Github/zeromq/example_1/hello_world_server.cpp">
+			<Option target="hello_world_server"/>
+		</Unit>
+		<Unit filename="/home/xiaohai/Github/zeromq/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/xiaohai/Github/zeromq/example_0/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\example_0\"/>
+		</Unit>
+		<Unit filename="/home/xiaohai/Github/zeromq/example_1/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\example_1\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
