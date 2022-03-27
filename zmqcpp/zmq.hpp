@@ -151,9 +151,7 @@
 #define CPPZMQ_VERSION_MINOR 8
 #define CPPZMQ_VERSION_PATCH 0
 
-#define CPPZMQ_VERSION                                                              \
-    ZMQ_MAKE_VERSION(CPPZMQ_VERSION_MAJOR, CPPZMQ_VERSION_MINOR,                    \
-                     CPPZMQ_VERSION_PATCH)
+#define CPPZMQ_VERSION ZMQ_MAKE_VERSION(CPPZMQ_VERSION_MAJOR, CPPZMQ_VERSION_MINOR, CPPZMQ_VERSION_PATCH)
 
 //  Detect whether the compiler supports C++11 rvalue references.
 #if (defined(__GNUC__) && (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ > 2))   \
@@ -238,12 +236,22 @@ namespace zmq
             using std::begin;
             using std::end;
 
+            ////////////////////////////////////////////////////////////////////////
+            /// \brief                     获取起始跌待器
+            /// \tparam T                  数据类型
+            /// \param r
+            /// \return
             template<class T>
             auto begin(T &&r) -> decltype(begin(std::forward<T>(r)))
             {
                 return begin(std::forward<T>(r));
             }
 
+            ////////////////////////////////////////////////////////////////////////
+            /// \brief                    获取尾迭代器的下一个地址
+            /// \tparam T                 数据类型
+            /// \param r
+            /// \return
             template<class T>
             auto end(T &&r) -> decltype(end(std::forward<T>(r)))
             {
@@ -277,6 +285,8 @@ namespace zmq
     typedef zmq_free_fn free_fn;
     typedef zmq_pollitem_t pollitem_t;
 
+    ////////////////////////////////////////////////////////////////////////
+    /// \brief                     错误类型
     class error_t : public std::exception
     {
     public:
@@ -286,6 +296,7 @@ namespace zmq
         explicit error_t(int err) ZMQ_NOTHROW: errnum(err)
         {}
 
+    public:
         virtual const char *what() const ZMQ_NOTHROW ZMQ_OVERRIDE
         {
             return zmq_strerror(errnum);
@@ -310,31 +321,7 @@ namespace zmq
         return rc;
     }
 
-    ZMQ_DEPRECATED("from 4.3.1, use poll taking non-const items")
-    inline int poll(zmq_pollitem_t const *items_, size_t nitems_, long timeout_ = -1)
-    {
-        return poll(const_cast<zmq_pollitem_t *>(items_), nitems_, timeout_);
-    }
-
 #ifdef ZMQ_CPP11
-
-    ZMQ_DEPRECATED("from 4.3.1, use poll taking non-const items")
-    inline int poll(zmq_pollitem_t const *items, size_t nitems, std::chrono::milliseconds timeout)
-    {
-        return poll(const_cast<zmq_pollitem_t *>(items), nitems, static_cast<long>(timeout.count()));
-    }
-
-    ZMQ_DEPRECATED("from 4.3.1, use poll taking non-const items")
-    inline int poll(std::vector<zmq_pollitem_t> const &items, std::chrono::milliseconds timeout)
-    {
-        return poll(const_cast<zmq_pollitem_t *>(items.data()), items.size(), static_cast<long>(timeout.count()));
-    }
-
-    ZMQ_DEPRECATED("from 4.3.1, use poll taking non-const items")
-    inline int poll(std::vector<zmq_pollitem_t> const &items, long timeout_ = -1)
-    {
-        return poll(const_cast<zmq_pollitem_t *>(items.data()), items.size(), timeout_);
-    }
 
     inline int poll(zmq_pollitem_t *items, size_t nitems, std::chrono::milliseconds timeout)
     {
@@ -346,12 +333,6 @@ namespace zmq
         return poll(items.data(), items.size(), static_cast<long>(timeout.count()));
     }
 
-    ZMQ_DEPRECATED("from 4.3.1, use poll taking std::chrono instead of long")
-    inline int poll(std::vector<zmq_pollitem_t> &items, long timeout_ = -1)
-    {
-        return poll(items.data(), items.size(), timeout_);
-    }
-
     template<std::size_t SIZE>
     inline int poll(std::array<zmq_pollitem_t, SIZE> &items, std::chrono::milliseconds timeout)
     {
@@ -360,14 +341,11 @@ namespace zmq
 
 #endif
 
-
-    inline void version(int *major_, int *minor_, int *patch_)
-    {
-        zmq_version(major_, minor_, patch_);
-    }
-
 #ifdef ZMQ_CPP11
 
+    ////////////////////////////////////////////////////////////////////////
+    /// \brief                获取版本信息
+    /// \return               版本信息
     inline std::tuple<int, int, int> version()
     {
         std::tuple<int, int, int> v;
@@ -389,15 +367,22 @@ namespace zmq
 
 #endif
 
+    ////////////////////////////////////////////////////////////////////////
+    /// \brief                           消息类
     class message_t
     {
     public:
+        ////////////////////////////////////////////////////////////////////////
+        /// \brief                       不指定大小构造函数
         message_t() ZMQ_NOTHROW
         {
             int rc = zmq_msg_init(&msg);
             ZMQ_ASSERT(rc == 0);
         }
 
+        ////////////////////////////////////////////////////////////////////////
+        /// \brief                       指定大小构造函数
+        /// \param size_
         explicit message_t(size_t size_)
         {
             int rc = zmq_msg_init_size(&msg, size_);
@@ -407,6 +392,11 @@ namespace zmq
             }
         }
 
+        ////////////////////////////////////////////////////////////////////////
+        /// \brief                       传入首尾迭代器进行构造
+        /// \tparam ForwardIter          迭代器类型
+        /// \param first                 起始迭代器
+        /// \param last                  结束迭代器
         template<class ForwardIter>
         message_t(ForwardIter first, ForwardIter last)
         {
@@ -422,6 +412,10 @@ namespace zmq
             std::copy(first, last, data<value_t>());
         }
 
+        ////////////////////////////////////////////////////////////////////////
+        /// \brief                         传入数据指针和数据大小进行构造
+        /// \param data_                   数据首地址
+        /// \param size_                   大小
         message_t(const void *data_, size_t size_)
         {
             int rc = zmq_msg_init_size(&msg, size_);
@@ -449,15 +443,6 @@ namespace zmq
         // overload set of string-like types and generic containers
 #if defined(ZMQ_CPP11) && !defined(ZMQ_CPP11_PARTIAL)
 
-        // NOTE this constructor will include the null terminator
-        // when called with a string literal.
-        // An overload taking const char* can not be added because
-        // it would be preferred over this function and break compatiblity.
-        template<class Char, size_t N, typename = typename std::enable_if<detail::is_char_type<Char>::value>::type>
-        ZMQ_DEPRECATED("from 4.7.0, use constructors taking iterators, (pointer, size) or strings instead")
-        explicit message_t(const Char (&data)[N]) :message_t(detail::ranges::begin(data), detail::ranges::end(data))
-        {}
-
         template<class Range,
                 typename = typename std::enable_if<
                         detail::is_range<Range>::value
@@ -479,12 +464,19 @@ namespace zmq
 
 #ifdef ZMQ_HAS_RVALUE_REFS
 
+        ////////////////////////////////////////////////////////////////////////
+        /// \brief                       拷贝构造函数
+        /// \param rhs                   右值
         message_t(message_t &&rhs) ZMQ_NOTHROW: msg(rhs.msg)
         {
             int rc = zmq_msg_init(&rhs.msg);
             ZMQ_ASSERT(rc == 0);
         }
 
+        ////////////////////////////////////////////////////////////////////////
+        /// \brief                       拷贝赋值
+        /// \param rhs                   右值
+        /// \return
         message_t &operator=(message_t &&rhs) ZMQ_NOTHROW
         {
             std::swap(msg, rhs.msg);
@@ -499,6 +491,9 @@ namespace zmq
             ZMQ_ASSERT(rc == 0);
         }
 
+
+        ////////////////////////////////////////////////////////////////////////
+        /// \brief                         重新构造
         void rebuild()
         {
             int rc = zmq_msg_close(&msg);
@@ -510,6 +505,10 @@ namespace zmq
             ZMQ_ASSERT(rc == 0);
         }
 
+
+        ////////////////////////////////////////////////////////////////////////
+        /// \brief                        重新构造，但是指定数据大小。
+        /// \param size_                  指定的数据大小
         void rebuild(size_t size_)
         {
             int rc = zmq_msg_close(&msg);
@@ -524,6 +523,11 @@ namespace zmq
             }
         }
 
+
+        ////////////////////////////////////////////////////////////////////////
+        /// \brief                          重新构造
+        /// \param data_                    数据首地址
+        /// \param size_                    数据大小
         void rebuild(const void *data_, size_t size_)
         {
             int rc = zmq_msg_close(&msg);
@@ -539,6 +543,12 @@ namespace zmq
             memcpy(data(), data_, size_);
         }
 
+        ////////////////////////////////////////////////////////////////////////
+        /// \brief                         重新构造
+        /// \param data_                   数据首地址
+        /// \param size_                   数据大小
+        /// \param ffn_
+        /// \param hint_
         void rebuild(void *data_, size_t size_, free_fn *ffn_, void *hint_ = ZMQ_NULLPTR)
         {
             int rc = zmq_msg_close(&msg);
@@ -553,16 +563,9 @@ namespace zmq
             }
         }
 
-        ZMQ_DEPRECATED("from 4.3.1, use move taking non-const reference instead")
-        void move(message_t const *msg_)
-        {
-            int rc = zmq_msg_move(&msg, const_cast<zmq_msg_t *>(msg_->handle()));
-            if (rc != 0)
-            {
-                throw error_t();
-            }
-        }
-
+        ////////////////////////////////////////////////////////////////////////
+        /// \brief                       移动函数
+        /// \param msg_                  待移动消息
         void move(message_t &msg_)
         {
             int rc = zmq_msg_move(&msg, msg_.handle());
@@ -572,16 +575,9 @@ namespace zmq
             }
         }
 
-        ZMQ_DEPRECATED("from 4.3.1, use copy taking non-const reference instead")
-        void copy(message_t const *msg_)
-        {
-            int rc = zmq_msg_copy(&msg, const_cast<zmq_msg_t *>(msg_->handle()));
-            if (rc != 0)
-            {
-                throw error_t();
-            }
-        }
-
+        ////////////////////////////////////////////////////////////////////////
+        /// \brief                       拷贝函数
+        /// \param msg_                  待拷贝消息
         void copy(message_t &msg_)
         {
             int rc = zmq_msg_copy(&msg, msg_.handle());
@@ -591,56 +587,81 @@ namespace zmq
             }
         }
 
+        ////////////////////////////////////////////////////////////////////////
+        /// \brief
+        /// \return
         bool more() const ZMQ_NOTHROW
         {
             int rc = zmq_msg_more(const_cast<zmq_msg_t *>(&msg));
             return rc != 0;
         }
 
+        ////////////////////////////////////////////////////////////////////////
+        /// \brief                          获取消息地址
+        /// \return                         消息地址
         void *data() ZMQ_NOTHROW
         {
             return zmq_msg_data(&msg);
         }
 
+        ////////////////////////////////////////////////////////////////////////
+        /// \brief                          获取消息地址
+        /// \return                         消息地址
         const void *data() const ZMQ_NOTHROW
         {
             return zmq_msg_data(const_cast<zmq_msg_t *>(&msg));
         }
 
+        ////////////////////////////////////////////////////////////////////////
+        /// \brief                          消息结构体大小
+        /// \return                         消息大小
         size_t size() const ZMQ_NOTHROW
         {
             return zmq_msg_size(const_cast<zmq_msg_t *>(&msg));
         }
 
+        ////////////////////////////////////////////////////////////////////////
+        /// \brief                          消息结构体大小是否为0
+        /// \return                         是否为空
         ZMQ_NODISCARD bool empty() const ZMQ_NOTHROW
         {
             return size() == 0u;
         }
 
+        ////////////////////////////////////////////////////////////////////////
+        /// \brief                          对消息进行强转
+        /// \tparam T                       对消息进行强转的类型
+        /// \return                         转换后的消息
         template<typename T>
         T *data() ZMQ_NOTHROW
         {
             return static_cast<T *>(data());
         }
 
+        ////////////////////////////////////////////////////////////////////////
+        /// \brief                          对消息进行强转
+        /// \tparam T                       对消息进行强转的类型
+        /// \return                         转换后的消息
         template<typename T>
         T const *data() const ZMQ_NOTHROW
         {
             return static_cast<T const *>(data());
         }
 
-        ZMQ_DEPRECATED("from 4.3.0, use operator== instead")
-        bool equal(const message_t *other) const ZMQ_NOTHROW
-        {
-            return *this == *other;
-        }
-
+        ////////////////////////////////////////////////////////////////////////
+        /// \brief                          判断两个消息是否相等
+        /// \param other
+        /// \return
         bool operator==(const message_t &other) const ZMQ_NOTHROW
         {
             const size_t my_size = size();
             return my_size == other.size() && 0 == memcmp(data(), other.data(), my_size);
         }
 
+        ////////////////////////////////////////////////////////////////////////
+        /// \brief                          判断两个消息是否不等
+        /// \param other
+        /// \return
         bool operator!=(const message_t &other) const ZMQ_NOTHROW
         {
             return !(*this == other);
@@ -648,6 +669,10 @@ namespace zmq
 
 #if ZMQ_VERSION >= ZMQ_MAKE_VERSION(3, 2, 0)
 
+        ////////////////////////////////////////////////////////////////////////
+        /// \brief                   获取属性
+        /// \param property_
+        /// \return
         int get(int property_)
         {
             int value = zmq_msg_get(&msg, property_);
@@ -700,7 +725,9 @@ namespace zmq
         }
 #endif
 
-        // interpret message content as a string
+        ////////////////////////////////////////////////////////////////////////
+        /// \brief                 转换为字符串
+        /// \return
         std::string to_string() const
         {
             return std::string(static_cast<const char *>(data()), size());
@@ -763,17 +790,26 @@ namespace zmq
             return os.str();
         }
 
+        ////////////////////////////////////////////////////////////////////////
+        /// \brief                   交换
+        /// \param other
         void swap(message_t &other) ZMQ_NOTHROW
         {
             // this assumes zmq::msg_t from libzmq is trivially relocatable
             std::swap(msg, other.msg);
         }
 
+        ////////////////////////////////////////////////////////////////////////
+        /// \brief
+        /// \return
         ZMQ_NODISCARD zmq_msg_t *handle() ZMQ_NOTHROW
         {
             return &msg;
         }
 
+        ////////////////////////////////////////////////////////////////////////
+        /// \brief
+        /// \return
         ZMQ_NODISCARD const zmq_msg_t *handle() const ZMQ_NOTHROW
         {
             return &msg;
@@ -801,48 +837,65 @@ namespace zmq
 #ifdef ZMQ_BLOCKY
         blocky = ZMQ_BLOCKY,
 #endif
+
 #ifdef ZMQ_IO_THREADS
         io_threads = ZMQ_IO_THREADS,
 #endif
+
 #ifdef ZMQ_THREAD_SCHED_POLICY
         thread_sched_policy = ZMQ_THREAD_SCHED_POLICY,
 #endif
+
 #ifdef ZMQ_THREAD_PRIORITY
         thread_priority = ZMQ_THREAD_PRIORITY,
 #endif
+
 #ifdef ZMQ_THREAD_AFFINITY_CPU_ADD
         thread_affinity_cpu_add = ZMQ_THREAD_AFFINITY_CPU_ADD,
 #endif
+
 #ifdef ZMQ_THREAD_AFFINITY_CPU_REMOVE
         thread_affinity_cpu_remove = ZMQ_THREAD_AFFINITY_CPU_REMOVE,
 #endif
+
 #ifdef ZMQ_THREAD_NAME_PREFIX
         thread_name_prefix = ZMQ_THREAD_NAME_PREFIX,
 #endif
+
 #ifdef ZMQ_MAX_MSGSZ
         max_msgsz = ZMQ_MAX_MSGSZ,
 #endif
+
 #ifdef ZMQ_ZERO_COPY_RECV
         zero_copy_recv = ZMQ_ZERO_COPY_RECV,
 #endif
+
 #ifdef ZMQ_MAX_SOCKETS
         max_sockets = ZMQ_MAX_SOCKETS,
 #endif
+
 #ifdef ZMQ_SOCKET_LIMIT
         socket_limit = ZMQ_SOCKET_LIMIT,
 #endif
+
 #ifdef ZMQ_IPV6
         ipv6 = ZMQ_IPV6,
 #endif
+
 #ifdef ZMQ_MSG_T_SIZE
         msg_t_size = ZMQ_MSG_T_SIZE
 #endif
+
     };
 #endif
 
+    ////////////////////////////////////////////////////////////////////////
+    /// \brief                     语义背景
     class context_t
     {
     public:
+        ////////////////////////////////////////////////////////////////////////
+        /// \brief                         无参构造函数
         context_t()
         {
             ptr = zmq_ctx_new();
@@ -852,7 +905,10 @@ namespace zmq
             }
         }
 
-
+        ////////////////////////////////////////////////////////////////////////
+        /// \brief                         两参数构造函数
+        /// \param io_threads_             最大线程数目
+        /// \param max_sockets_            最大套接字数目
         explicit context_t(int io_threads_, int max_sockets_ = ZMQ_MAX_SOCKETS_DFLT)
         {
             ptr = zmq_ctx_new();
@@ -870,11 +926,18 @@ namespace zmq
 
 #ifdef ZMQ_HAS_RVALUE_REFS
 
+        ////////////////////////////////////////////////////////////////////////
+        /// \brief                     拷贝构造
+        /// \param rhs                 待拷贝对象
         context_t(context_t &&rhs) ZMQ_NOTHROW: ptr(rhs.ptr)
         {
             rhs.ptr = ZMQ_NULLPTR;
         }
 
+        ////////////////////////////////////////////////////////////////////////
+        /// \brief                     拷贝赋值
+        /// \param rhs                 右值
+        /// \return
         context_t &operator=(context_t &&rhs) ZMQ_NOTHROW
         {
             close();
@@ -887,20 +950,6 @@ namespace zmq
         ~context_t() ZMQ_NOTHROW
         {
             close();
-        }
-
-        ZMQ_CPP11_DEPRECATED("from 4.7.0, use set taking zmq::ctxopt instead")
-        int setctxopt(int option_, int optval_)
-        {
-            int rc = zmq_ctx_set(ptr, option_, optval_);
-            ZMQ_ASSERT(rc == 0);
-            return rc;
-        }
-
-        ZMQ_CPP11_DEPRECATED("from 4.7.0, use get taking zmq::ctxopt instead")
-        int getctxopt(int option_)
-        {
-            return zmq_ctx_get(ptr, option_);
         }
 
 #ifdef ZMQ_CPP11
@@ -976,12 +1025,6 @@ namespace zmq
         ZMQ_NODISCARD void *handle() ZMQ_NOTHROW
         {
             return ptr;
-        }
-
-        ZMQ_DEPRECATED("from 4.7.0, use handle() != nullptr instead")
-        operator bool() const ZMQ_NOTHROW
-        {
-            return ptr != ZMQ_NULLPTR;
         }
 
         void swap(context_t &other) ZMQ_NOTHROW
@@ -1837,51 +1880,18 @@ namespace zmq
 
     namespace detail
     {
+        ////////////////////////////////////////////////////////////////////////
+        /// \brief                      套接字基类
         class socket_base
         {
         public:
+            ////////////////////////////////////////////////////////////////////////
+            /// \brief                  无参构造函数
             socket_base() ZMQ_NOTHROW: _handle(ZMQ_NULLPTR)
             {}
 
             ZMQ_EXPLICIT socket_base(void *handle) ZMQ_NOTHROW: _handle(handle)
             {}
-
-           template<typename T>
-           ZMQ_CPP11_DEPRECATED("from 4.7.0, use `set` taking option from zmq::sockopt")
-           void setsockopt(int option_, T const &optval)
-           {
-               setsockopt(option_, &optval, sizeof(T));
-           }
-
-           ZMQ_CPP11_DEPRECATED("from 4.7.0, use `set` taking option from zmq::sockopt")
-           void setsockopt(int option_, const void *optval_, size_t optvallen_)
-           {
-               int rc = zmq_setsockopt(_handle, option_, optval_, optvallen_);
-               if (rc != 0)
-               {
-                   throw error_t();
-               }
-           }
-
-           ZMQ_CPP11_DEPRECATED("from 4.7.0, use `get` taking option from zmq::sockopt")
-           void getsockopt(int option_, void *optval_, size_t *optvallen_) const
-           {
-               int rc = zmq_getsockopt(_handle, option_, optval_, optvallen_);
-               if (rc != 0)
-               {
-                   throw error_t();
-               }
-           }
-
-           template<typename T>
-           ZMQ_CPP11_DEPRECATED("from 4.7.0, use `get` taking option from zmq::sockopt")
-           T getsockopt(int option_) const
-           {
-               T optval;
-               size_t optlen = sizeof(T);
-               getsockopt(option_, &optval, &optlen);
-               return optval;
-           }
 
 #ifdef ZMQ_CPP11
 
@@ -2000,11 +2010,17 @@ namespace zmq
 
 #endif
 
+            ////////////////////////////////////////////////////////////////////////
+            ///                              服务器绑定到某地址
+            /// \param addr                  地址值
             void bind(std::string const &addr)
             {
                 bind(addr.c_str());
             }
 
+            ////////////////////////////////////////////////////////////////////////
+            /// \brief                       服务器绑定到某地址
+            /// \param addr_                 地址值
             void bind(const char *addr_)
             {
                 int rc = zmq_bind(_handle, addr_);
@@ -2014,11 +2030,17 @@ namespace zmq
                 }
             }
 
+            ////////////////////////////////////////////////////////////////////////
+            /// \brief                       服务器取消绑定
+            /// \param addr                  地址值
             void unbind(std::string const &addr)
             {
                 unbind(addr.c_str());
             }
 
+            ////////////////////////////////////////////////////////////////////////
+            /// \brief                       服务器取消绑定
+            /// \param addr_                 地址值
             void unbind(const char *addr_)
             {
                 int rc = zmq_unbind(_handle, addr_);
@@ -2028,11 +2050,17 @@ namespace zmq
                 }
             }
 
+            ////////////////////////////////////////////////////////////////////////
+            /// \brief                      客户端连接
+            /// \param addr                 地址值
             void connect(std::string const &addr)
             {
                 connect(addr.c_str());
             }
 
+            ////////////////////////////////////////////////////////////////////////
+            /// \brief                      客户端连接
+            /// \param addr_                地址值
             void connect(const char *addr_)
             {
                 int rc = zmq_connect(_handle, addr_);
@@ -2042,11 +2070,17 @@ namespace zmq
                 }
             }
 
+            ////////////////////////////////////////////////////////////////////////
+            /// \brief                      客户端取消连接
+            /// \param addr                 地址值
             void disconnect(std::string const &addr)
             {
                 disconnect(addr.c_str());
             }
 
+            ////////////////////////////////////////////////////////////////////////
+            /// \brief                      客户端取消连接
+            /// \param addr_                地址值
             void disconnect(const char *addr_)
             {
                 int rc = zmq_disconnect(_handle, addr_);
@@ -2056,75 +2090,13 @@ namespace zmq
                 }
             }
 
-            ZMQ_DEPRECATED("from 4.7.1, use handle() != nullptr or operator bool")
-            bool connected() const ZMQ_NOTHROW
-            {
-                return (_handle != ZMQ_NULLPTR);
-            }
-
-            ZMQ_CPP11_DEPRECATED("from 4.3.1, use send taking a const_buffer and send_flags")
-            size_t send(const void *buf_, size_t len_, int flags_ = 0)
-            {
-                int nbytes = zmq_send(_handle, buf_, len_, flags_);
-                if (nbytes >= 0)
-                {
-                    return static_cast<size_t>(nbytes);
-                }
-                if (zmq_errno() == EAGAIN)
-                {
-                    return 0;
-                }
-                throw error_t();
-            }
-
-            ZMQ_CPP11_DEPRECATED("from 4.3.1, use send taking message_t and send_flags")
-            bool send(message_t &msg_, int flags_ = 0) // default until removed
-            {
-                int nbytes = zmq_msg_send(msg_.handle(), _handle, flags_);
-                if (nbytes >= 0)
-                {
-                    return true;
-                }
-                if (zmq_errno() == EAGAIN)
-                {
-                    return false;
-                }
-                throw error_t();
-            }
-
-            template<typename T>
-            ZMQ_CPP11_DEPRECATED("from 4.4.1, use send taking message_t or buffer (for contiguous ranges), and send_flags")
-            bool send(T first, T last, int flags_ = 0)
-            {
-                zmq::message_t msg(first, last);
-                int nbytes = zmq_msg_send(msg.handle(), _handle, flags_);
-                if (nbytes >= 0)
-                {
-                    return true;
-                }
-                if (zmq_errno() == EAGAIN)
-                {
-                    return false;
-                }
-                throw error_t();
-            }
-
-#ifdef ZMQ_HAS_RVALUE_REFS
-
-            ZMQ_CPP11_DEPRECATED("from 4.3.1, use send taking message_t and send_flags")
-            bool send(message_t &&msg_, int flags_ = 0) // default until removed
-            {
-#ifdef ZMQ_CPP11
-                return send(msg_, static_cast<send_flags>(flags_)).has_value();
-#else
-                return send(msg_, flags_);
-#endif
-            }
-
-#endif
-
 #ifdef ZMQ_CPP11
 
+            ////////////////////////////////////////////////////////////////////////
+            /// \brief                     发送消息
+            /// \param buf                 消息
+            /// \param flags               标识
+            /// \return
             send_result_t send(const_buffer buf, send_flags flags = send_flags::none)
             {
                 const int nbytes = zmq_send(_handle, buf.data(), buf.size(), static_cast<int>(flags));
@@ -2139,6 +2111,11 @@ namespace zmq
                 throw error_t();
             }
 
+            ////////////////////////////////////////////////////////////////////////
+            /// \brief                      发送函数
+            /// \param msg                  消息
+            /// \param flags                标识
+            /// \return
             send_result_t send(message_t &msg, send_flags flags)
             {
                 int nbytes = zmq_msg_send(msg.handle(), _handle, static_cast<int>(flags));
@@ -2153,6 +2130,11 @@ namespace zmq
                 throw error_t();
             }
 
+            ////////////////////////////////////////////////////////////////////////
+            /// \brief                      发送函数
+            /// \param msg                  消息
+            /// \param flags                标识
+            /// \return
             send_result_t send(message_t &&msg, send_flags flags)
             {
                 return send(msg, flags);
@@ -2160,37 +2142,12 @@ namespace zmq
 
 #endif
 
-            ZMQ_CPP11_DEPRECATED("from 4.3.1, use recv taking a mutable_buffer and recv_flags")
-            size_t recv(void *buf_, size_t len_, int flags_ = 0)
-            {
-                int nbytes = zmq_recv(_handle, buf_, len_, flags_);
-                if (nbytes >= 0)
-                {
-                    return static_cast<size_t>(nbytes);
-                }
-                if (zmq_errno() == EAGAIN)
-                {
-                    return 0;
-                }
-                throw error_t();
-            }
-
-            ZMQ_CPP11_DEPRECATED("from 4.3.1, use recv taking a reference to message_t and recv_flags")
-            bool recv(message_t *msg_, int flags_ = 0)
-            {
-                int nbytes = zmq_msg_recv(msg_->handle(), _handle, flags_);
-                if (nbytes >= 0)
-                {
-                    return true;
-                }
-                if (zmq_errno() == EAGAIN)
-                {
-                    return false;
-                }
-                throw error_t();
-            }
-
 #ifdef ZMQ_CPP11
+            ////////////////////////////////////////////////////////////////////////
+            /// \brief                           接收消息
+            /// \param buf                       消息
+            /// \param flags                     标识
+            /// \return
             ZMQ_NODISCARD
             recv_buffer_result_t recv(mutable_buffer buf, recv_flags flags = recv_flags::none)
             {
@@ -2206,6 +2163,11 @@ namespace zmq
                 throw error_t();
             }
 
+            ////////////////////////////////////////////////////////////////////////
+            /// \brief                           接收消息
+            /// \param msg                       消息
+            /// \param flags                     标识
+            /// \return
             ZMQ_NODISCARD
             recv_result_t recv(message_t &msg, recv_flags flags = recv_flags::none)
             {
@@ -2215,6 +2177,7 @@ namespace zmq
                     assert(msg.size() == static_cast<size_t>(nbytes));
                     return static_cast<size_t>(nbytes);
                 }
+
                 if (zmq_errno() == EAGAIN)
                 {
                     return {};
@@ -2250,6 +2213,9 @@ namespace zmq
                 return _handle;
             }
 
+            ////////////////////////////////////////////////////////////////////////
+            /// \brief                   直接取布尔值判断
+            /// \return                  是否为空
             ZMQ_EXPLICIT operator bool() const ZMQ_NOTHROW
             {
                 return _handle != ZMQ_NULLPTR;
@@ -2521,16 +2487,6 @@ namespace zmq
         a.swap(b);
     }
 
-    ZMQ_DEPRECATED("from 4.3.1, use proxy taking socket_t objects")
-    inline void proxy(void *frontend, void *backend, void *capture)
-    {
-        int rc = zmq_proxy(frontend, backend, capture);
-        if (rc != 0)
-        {
-            throw error_t();
-        }
-    }
-
     inline void proxy(socket_ref frontend, socket_ref backend, socket_ref capture = socket_ref())
     {
         int rc = zmq_proxy(frontend.handle(), backend.handle(), capture.handle());
@@ -2541,16 +2497,6 @@ namespace zmq
     }
 
 #ifdef ZMQ_HAS_PROXY_STEERABLE
-
-    ZMQ_DEPRECATED("from 4.3.1, use proxy_steerable taking socket_t objects")
-    inline void proxy_steerable(void *frontend, void *backend, void *capture, void *control)
-    {
-        int rc = zmq_proxy_steerable(frontend, backend, capture, control);
-        if (rc != 0)
-        {
-            throw error_t();
-        }
-    }
 
     inline void proxy_steerable(socket_ref frontend, socket_ref backend, socket_ref capture, socket_ref control)
     {

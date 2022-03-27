@@ -327,6 +327,8 @@ namespace zmq
     Guide. Unnecessary copying is avoided by using move semantics to efficiently
     add/remove parts.
 */
+    ////////////////////////////////////////////////////////////////////////
+    /// \brief                        多部分消息
     class multipart_t
     {
     private:
